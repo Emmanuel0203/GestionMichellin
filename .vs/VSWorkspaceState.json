@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\aplication",
+    "\\core",
+    "\\core\\domain",
+    "\\core\\domain\\geografia",
+    "\\core\\domain\\geografia\\__pycache__",
+    "\\core\\domain\\organizacion",
+    "\\core\\domain\\organizacion\\__pycache__",
+    "\\core\\domain\\servicio\\__pycache__",
+    "\\core\\domain\\transaccion\\__pycache__",
+    "\\core\\domain\\usuario\\__pycache__"
+  ],
+  "SelectedNode": "\\aplication\\WebAPIGestionMichellin.py",
+  "PreviewInSolutionExplorer": false
+}
