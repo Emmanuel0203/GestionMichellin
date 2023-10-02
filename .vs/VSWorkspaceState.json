@@ -1,15 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\aplication",
     "\\core",
     "\\core\\broker",
-    "\\core\\broker\\geografia",
-    "\\core\\domain",
-    "\\core\\domain\\geografia",
-    "\\core\\domain\\geografia\\__pycache__",
-    "\\core\\domain\\organizacion\\__pycache__"
+    "\\core\\domain"
   ],
-  "SelectedNode": "\\core\\broker\\geografia\\GeografiaBroker.py",
+  "SelectedNode": "\\core\\broker\\organizacion",
   "PreviewInSolutionExplorer": false
 }
