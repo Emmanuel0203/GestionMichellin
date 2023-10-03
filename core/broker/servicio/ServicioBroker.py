@@ -20,17 +20,23 @@ from core.domain.servicio.ServicioModel import ModeloServicio
 
 class BrokerServicio:
     
-    async def ingresar_servicio(self, servicio: ModeloServicio | None = None):
+    def ingresar_servicio(self, servicio: ModeloServicio):
         URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
-        client = pymongo.MongoClient(URL)
-        db = client["dbaReencauchadoraEA"]
-        col = db["Servicio"]
-        data = json.dumps(servicio)
-        resultado = col.insert_one()
-        servicio.Resultado = resultado.insert_id
-        
-
-        client.close() 
+        try:
+            client = pymongo.MongoClient(URL)
+            db = client["dbaReencauchadoraEA"]
+            col = db["Geografia"]
+            insert_data = {
+                "NombrePais": "Mexico",
+                "NombreDepartamento": "DF",
+                "NombreCiudad": "CDMX"
+                    }
+            resultado = col.insert_one(insert_data)
+            servicio.Resultado = f"Ingresar Exitosa: {resultado.inserted_id}"
+        except Exception as ex:
+            servicio.Resultado = f"Ingresar Fallida: {ex}"
+        finally:
+            client.close()
         return servicio
 		
     async def modificar_servicio(self, servicio: ModeloServicio | None = None):

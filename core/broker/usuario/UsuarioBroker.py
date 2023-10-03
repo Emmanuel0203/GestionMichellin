@@ -20,17 +20,23 @@ from core.domain.usuario.UsuarioModel import ModeloUsuario
 
 class BrokerUsuario:
     
-    async def ingresar_usuario(self, usuario: ModeloUsuario | None = None):
+    def ingresar_usuario(self, usuario: ModeloUsuario):
         URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
-        client = pymongo.MongoClient(URL)
-        db = client["dbaReencauchadoraEA"]
-        col = db["Usuario"]
-        data = json.dumps(usuario)
-        resultado = col.insert_one()
-        usuario.Resultado = resultado.insert_id
-        
-
-        client.close() 
+        try:
+            client = pymongo.MongoClient(URL)
+            db = client["dbaReencauchadoraEA"]
+            col = db["Geografia"]
+            insert_data = {
+                "NombrePais": "Mexico",
+                "NombreDepartamento": "DF",
+                "NombreCiudad": "CDMX"
+                    }
+            resultado = col.insert_one(insert_data)
+            usuario.Resultado = f"Ingresar Exitosa: {resultado.inserted_id}"
+        except Exception as ex:
+            usuario.Resultado = f"Ingresar Fallida: {ex}"
+        finally:
+            client.close()
         return usuario
 		
     async def modificar_usuario(self, usuario: ModeloUsuario | None = None):

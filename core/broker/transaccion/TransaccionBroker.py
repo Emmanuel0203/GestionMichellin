@@ -20,17 +20,23 @@ from core.domain.transaccion.TransaccionModel import ModeloTransaccion
 
 class BrokerTransaccion:
     
-    async def ingresar_transaccion(self, transaccion: ModeloTransaccion | None = None):
+    def ingresar_transaccion(self, transaccion: ModeloTransaccion):
         URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
-        client = pymongo.MongoClient(URL)
-        db = client["dbaReencauchadoraEA"]
-        col = db["Transaccional"]
-        data = json.dumps(transaccion)
-        resultado = col.insert_one()
-        transaccion.Resultado = resultado.insert_id
-        
-
-        client.close() 
+        try:
+            client = pymongo.MongoClient(URL)
+            db = client["dbaReencauchadoraEA"]
+            col = db["Geografia"]
+            insert_data = {
+                "NombrePais": "Mexico",
+                "NombreDepartamento": "DF",
+                "NombreCiudad": "CDMX"
+                    }
+            resultado = col.insert_one(insert_data)
+            transaccion.Resultado = f"Ingresar Exitosa: {resultado.inserted_id}"
+        except Exception as ex:
+            transaccion.Resultado = f"Ingresar Fallida: {ex}"
+        finally:
+            client.close()
         return transaccion
 		
     async def modificar_transaccion(self, transaccion: ModeloTransaccion | None = None):

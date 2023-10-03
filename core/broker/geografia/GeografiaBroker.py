@@ -26,6 +26,7 @@ class BrokerGeografia:
                 "NombreDepartamento": "DF",
                 "NombreCiudad": "CDMX"
                     }
+
             resultado = col.insert_one(insert_data)
             geografia.Resultado = f"Ingresar Exitosa: {resultado.inserted_id}"
         except Exception as ex:

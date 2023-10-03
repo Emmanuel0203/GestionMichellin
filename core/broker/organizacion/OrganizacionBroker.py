@@ -20,17 +20,28 @@ from core.domain.organizacion.OrganizacionModel import ModeloOrganizacion
 
 class BrokerOrganizacion:
     
-    async def ingresar_organizacion(self, organizacion: ModeloOrganizacion | None = None):
+    def ingresar_organizacion(self, organizacion: ModeloOrganizacion):
         URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
-        client = pymongo.MongoClient(URL)
-        db = client["dbaReencauchadoraEA"]
-        col = db["Organizacional"]
-        data = json.dumps(organizacion)
-        resultado = col.insert_one()
-        organizacion.Resultado = resultado.insert_id
-        
-
-        client.close() 
+        try:
+            client = pymongo.MongoClient(URL)
+            db = client["dbaReencauchadoraEA"]
+            col = db["Organizacional"]
+            insert_data = {
+                "NitEmpresa":"123456789-0",
+                "NombreEmpresa": "Michellin",
+                "NombreSede": "Sede Medellin",
+                "DireccionSede":"Centro de Medellin",
+                "DocumentoTrabajador":"123456789",
+                "NombreTrabajador":"Cosme",
+                "ApellidoTrabajador":"Fulanito"
+                    }
+                    
+            resultado = col.insert_one(insert_data)
+            organizacion.Resultado = f"Ingresar Exitosa: {resultado.inserted_id}"
+        except Exception as ex:
+            organizacion.Resultado = f"Ingresar Fallida: {ex}"
+        finally:
+            client.close()
         return organizacion
 		
     async def modificar_organizacion(self, organizacion: ModeloOrganizacion | None = None):
