@@ -4,6 +4,10 @@
     "\\aplication",
     "\\core",
     "\\core\\broker",
+    "\\core\\broker\\geografia",
+    "\\core\\broker\\organizacion",
+    "\\core\\broker\\servicio",
+    "\\core\\broker\\transaccion",
     "\\core\\broker\\usuario"
   ],
   "SelectedNode": "\\aplication\\WebAPIGestionMichellin.py",
