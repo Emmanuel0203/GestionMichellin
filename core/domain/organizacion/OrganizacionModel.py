@@ -12,6 +12,7 @@ class ModeloOrganizacion(BaseModel):
     Empresa: str |None = None
     Sede: str |None = None
     Trabajador: str |None = None
+    Resultado: str |None = None
 
 
 ####################################

@@ -6,10 +6,9 @@
     "\\core\\broker",
     "\\core\\broker\\geografia",
     "\\core\\broker\\organizacion",
-    "\\core\\broker\\servicio",
-    "\\core\\broker\\transaccion",
-    "\\core\\broker\\usuario"
+    "\\core\\domain",
+    "\\core\\domain\\organizacion"
   ],
-  "SelectedNode": "\\aplication\\WebAPIGestionMichellin.py",
+  "SelectedNode": "\\core\\broker\\organizacion\\OrganizacionBroker.py",
   "PreviewInSolutionExplorer": false
 }

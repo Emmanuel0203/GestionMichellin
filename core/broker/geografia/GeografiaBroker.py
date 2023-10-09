@@ -1,22 +1,23 @@
-
 # GeografiaBroker:
 
-####################################
+##########################################
 
-from http import client
 import pymongo
 import json
+from bson import json_util
+import collections
 
-####################################
-
+##########################################
+from bson import ObjectId
 from pymongo import MongoClient
 from core.domain.geografia.GeografiaModel import ModeloGeografia
 
-####################################
+
+##########################################
 
 class BrokerGeografia:
     def ingresar_geografia(self, geografia: ModeloGeografia):
-        URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
+        URL = "mongodb+srv://dbauser:dbaPassword@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
         try:
             client = pymongo.MongoClient(URL)
             db = client["dbaReencauchadoraEA"]
@@ -24,9 +25,9 @@ class BrokerGeografia:
             insert_data = {
                 "NombrePais": "Mexico",
                 "NombreDepartamento": "DF",
-                "NombreCiudad": "CDMX"
+                "NombreCiudad": "CDMX",
+                
                     }
-
             resultado = col.insert_one(insert_data)
             geografia.Resultado = f"Ingresar Exitosa: {resultado.inserted_id}"
         except Exception as ex:
@@ -34,14 +35,16 @@ class BrokerGeografia:
         finally:
             client.close()
         return geografia
-		
     
+##############################################################################################################################
+
     def modificar_geografia(self, geografia: ModeloGeografia):
-        URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
+        URL = "mongodb+srv://dbauser:dbaPassword@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
         try:
             client = pymongo.MongoClient(URL)
             db = client["dbaReencauchadoraEA"]
             col = db["Geografia"]
+            
             filter_data = {
                             "NombrePais": "Mexico"
                            }
@@ -54,23 +57,39 @@ class BrokerGeografia:
                                 }
                             }
             resultado = col.update_many(filter_data, update_data)
+            
+            resultado = col.update_many({"NombrePais": geografia.NombrePais},
+                                        {
+                                                    "$set":
+                                                    {
+                                                        "NombrePais": geografia.NombrePais,
+                                                        "NombreDepartamento": geografia.NombreDepartamento,
+                                                        "NombreCiudad": geografia.NombreCiudad,
+                                                    }
+                                                }
+                                        )
             geografia.Resultado = f"Modificar Exitosa: {resultado.modified_count}"
         except Exception as ex:
             geografia.Resultado = f"Modificar Fallida: {ex}"
         finally:
             client.close()
         return geografia
-	
+
+##############################################################################################################################
+
     def retirar_geografia(self, geografia: ModeloGeografia):
-        URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
+        URL = "mongodb+srv://dbauser:dbaPassword@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
         try:
             client = pymongo.MongoClient(URL)
             db = client["dbaReencauchadoraEA"]
             col = db["Geografia"]
+            
             filter_data = {
                             "NombrePais": "Mexico"
                            }
             resultado = col.delete_many(filter_data)
+            
+            resultado = col.delete_many({"NombrePais": geografia.NombrePais})
             geografia.Resultado = f"Retirar Exitosa: {resultado.deleted_count}"
         except Exception as ex:
             geografia.Resultado = f"Retirar Fallida: {ex}"
@@ -78,25 +97,48 @@ class BrokerGeografia:
             client.close()
         return geografia
 
-    async def consultar_geografia(self, geografia: ModeloGeografia | None = None):
-         URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
-         client = pymongo.MongoClient(URL)
-         db = client["dbaReencauchadoraEA"]
-         col = db["Geografia"]
+##############################################################################################################################
+
+    def consultar_geografia(self, geografia: ModeloGeografia):
+        URL = "mongodb+srv://dbauser:dbaPassword@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
+        try:
+            client = pymongo.MongoClient(URL)
+            db = client["dbaReencauchadoraEA"]
+            col = db["Geografia"]
+
+            consult_data = {"NombrePais": "Canada"}
 
 
-         for x in col.find():
-             print(x)    
-         return geografia
-    
-    async def consultarid_geografia(self, geografia: ModeloGeografia | None = None):
-          URL = "mongodb+srv://dbauser:<Mono1011>@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
-          client = pymongo.MongoClient(URL)
-          db = client["dbaReencauchadoraEA"]
-          col = db["Geografia"]
-        
-          for x in col.find():
-              print(x)   
-          return geografia
+            resultados = list(col.find(consult_data))
+            resultado_formateado = [str(item) for item in resultados]
 
-##########################################
+            geografia.Resultado = f"Consultar Exitosa: {resultado_formateado}"
+        except Exception as ex:
+            geografia.Resultado = f"Consultar Fallida: {str(ex)}"
+        finally:
+            client.close()
+        return geografia
+
+##############################################################################################################################
+
+    def consultarid_geografia(self, geografia: ModeloGeografia):
+        URL = "mongodb+srv://dbauser:dbaPassword@cluster0.4ysq7er.mongodb.net/dbaReencauchadoraEA?retryWrites=true&w=majority"
+        try:
+            client = pymongo.MongoClient(URL)
+            db = client["dbaReencauchadoraEA"]
+            col = db["Geografia"]
+
+            consult_data = {"_id": ObjectId('6509190997ce3fc75ff74b8e')}
+
+
+            resultados = list(col.find(consult_data))
+            resultado_formateado = [str(item) for item in resultados]
+
+            geografia.Resultado = f"Consultar Exitosa: {resultado_formateado}"
+        except Exception as ex:
+            geografia.Resultado = f"Consultar Fallida: {str(ex)}"
+        finally:
+            client.close()
+        return geografia
+
+##############################################################################################################################

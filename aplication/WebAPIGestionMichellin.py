@@ -26,7 +26,7 @@ app: FastAPI = FastAPI(
                         description='UUSBGS - 202302'
                         )
 
-###########################################
+###############################################################################
 
 @app.post(
             "/ingresargeografia",
@@ -35,8 +35,10 @@ app: FastAPI = FastAPI(
             description="API para Ingresar Geografia",
             tags=["Geografia"]
             )
-async def ingresar_geografia(geografia: ModeloGeografia | None = None):
-    return geografia
+async def ingresar_geografia(geografia: ModeloGeografia):
+    print("Ingreso API ingresar_geografia")
+    brokerGeografia = BrokerGeografia()
+    return brokerGeografia.ingresar_geografia(geografia)
 
 
 @app.post(
@@ -47,7 +49,9 @@ async def ingresar_geografia(geografia: ModeloGeografia | None = None):
             tags=["Geografia"]
             )
 async def modificar_geografia(geografia: ModeloGeografia | None = None):
-    return geografia
+    print("Ingreso API modificar_geografia")
+    brokerGeografia = BrokerGeografia()
+    return brokerGeografia.modificar_geografia(geografia)
 
 
 @app.post(
@@ -58,7 +62,9 @@ async def modificar_geografia(geografia: ModeloGeografia | None = None):
             tags=["Geografia"]
             )
 async def retirar_geografia(geografia: ModeloGeografia | None = None):
-    return geografia
+    print("Ingreso API retirar_geografia")
+    brokerGeografia = BrokerGeografia()
+    return brokerGeografia.retirar_geografia(geografia)
 
 
 @app.post(
@@ -69,9 +75,9 @@ async def retirar_geografia(geografia: ModeloGeografia | None = None):
             tags=["Geografia"]
             )
 async def consultar_geografia(geografia: ModeloGeografia | None = None):
+    print("Ingreso API consultar_geografia")
     brokergeografia = BrokerGeografia()
-    geografia = brokergeografia.consultar_geografia(geografia)
-    return geografia
+    return brokergeografia.consultar_geografia(geografia)
 
 
 @app.post(
@@ -82,9 +88,11 @@ async def consultar_geografia(geografia: ModeloGeografia | None = None):
             tags=["Geografia"]
             )
 async def consultarid_geografia(geografia: ModeloGeografia | None = None):
-    return geografia
+    print("Ingreso API consultarid_geografia")
+    brokergeografia = BrokerGeografia()
+    return brokergeografia.consultarid_geografia(geografia)
 
-#####################################################
+###############################################################################
 
 @app.post(
             "/ingresarorganizacion",
@@ -94,7 +102,9 @@ async def consultarid_geografia(geografia: ModeloGeografia | None = None):
             tags=["Organizacion"]
             )
 async def ingresar_organizacion(organizacion: ModeloOrganizacion | None = None):
-    return organizacion
+    print("Ingreso API ingresar_organizacion")
+    brokerOrganizacion = BrokerOrganizacion()
+    return brokerOrganizacion.ingresar_organizacion(organizacion)
 
 
 @app.post(
@@ -105,7 +115,9 @@ async def ingresar_organizacion(organizacion: ModeloOrganizacion | None = None):
             tags=["Organizacion"]
             )
 async def modificar_organizacion(organizacion: ModeloOrganizacion | None = None):
-    return organizacion
+    print("Modifico API ingresar_organizacion")
+    brokerOrganizacion = BrokerOrganizacion()
+    return brokerOrganizacion.modificar_organizacion(organizacion)
 
 
 @app.post(
@@ -116,7 +128,8 @@ async def modificar_organizacion(organizacion: ModeloOrganizacion | None = None)
             tags=["Organizacion"]
             )
 async def retirar_organizacion(organizacion: ModeloOrganizacion | None = None):
-    return organizacion
+    brokerOrganizacion = BrokerOrganizacion()
+    return brokerOrganizacion.retirar_organizacion(organizacion)
 
 
 @app.post(
@@ -127,9 +140,8 @@ async def retirar_organizacion(organizacion: ModeloOrganizacion | None = None):
             tags=["Organizacion"]
             )
 async def consultar_organizacion(organizacion: ModeloOrganizacion | None = None):
-    brokerorganizacion = BrokerOrganizacion()
-    organizacion = brokerorganizacion.consultar_organizacion(organizacion)
-    return organizacion
+    brokerOrganizacion = BrokerOrganizacion()
+    return brokerOrganizacion.consultar_organizacion(organizacion)
 
 
 @app.post(
@@ -140,9 +152,10 @@ async def consultar_organizacion(organizacion: ModeloOrganizacion | None = None)
             tags=["Organizacion"]
             )
 async def consultarid_organizacion(organizacion: ModeloOrganizacion | None = None):
-    return organizacion
+    brokerOrganizacion = BrokerOrganizacion()
+    return brokerOrganizacion.consultarid_organizacion(organizacion)
 
-#####################################################
+###############################################################################
 
 @app.post(
             "/ingresarservicio",
@@ -152,7 +165,9 @@ async def consultarid_organizacion(organizacion: ModeloOrganizacion | None = Non
             tags=["Servicio"]
             )
 async def ingresar_servicio(servicio: ModeloServicio | None = None):
-    return servicio
+    print("Ingreso API ingresar_servicio")
+    brokerServicio = BrokerServicio()
+    return brokerServicio.ingresar_servicio(servicio)
 
 
 @app.post(
@@ -163,7 +178,8 @@ async def ingresar_servicio(servicio: ModeloServicio | None = None):
             tags=["Servicio"]
             )
 async def modificar_servicio(servicio: ModeloServicio | None = None):
-    return servicio
+    brokerServicio = BrokerServicio()
+    return brokerServicio.modificar_servicio(servicio)
 
 
 @app.post(
@@ -174,7 +190,8 @@ async def modificar_servicio(servicio: ModeloServicio | None = None):
             tags=["Servicio"]
             )
 async def retirar_servicio(servicio: ModeloServicio | None = None):
-    return servicio
+    brokerServicio = BrokerServicio()
+    return brokerServicio.retirar_servicio(servicio)
 
 
 @app.post(
@@ -185,9 +202,8 @@ async def retirar_servicio(servicio: ModeloServicio | None = None):
             tags=["Servicio"]
             )
 async def consultar_servicio(servicio: ModeloServicio | None = None):
-    brokerservicio = BrokerServicio()
-    servicio = brokerservicio.consultar_servicio(servicio)
-    return servicio
+    brokerServicio = BrokerServicio()
+    return brokerServicio.consultar_servicio(servicio)
 
 
 @app.post(
@@ -198,9 +214,10 @@ async def consultar_servicio(servicio: ModeloServicio | None = None):
             tags=["Servicio"]
             )
 async def consultarid_servicio(servicio: ModeloServicio | None = None):
-    return servicio
+    brokerServicio = BrokerServicio()
+    return brokerServicio.consultarid_servicio(servicio)
 
-#####################################################
+###############################################################################
 
 @app.post(
             "/ingresartransaccion",
@@ -210,7 +227,9 @@ async def consultarid_servicio(servicio: ModeloServicio | None = None):
             tags=["Transaccion"]
             )
 async def ingresar_transaccion(transaccion: ModeloTransaccion | None = None):
-    return transaccion
+    print("Ingreso API ingresar_transaccion")
+    brokerTransaccion = BrokerTransaccion()
+    return brokerTransaccion.ingresar_transaccion(transaccion)
 
 
 @app.post(
@@ -221,7 +240,8 @@ async def ingresar_transaccion(transaccion: ModeloTransaccion | None = None):
             tags=["Transaccion"]
             )
 async def modificar_transaccion(transaccion: ModeloTransaccion | None = None):
-    return transaccion
+    brokerTransaccion = BrokerTransaccion()
+    return brokerTransaccion.modificar_transaccion(transaccion)
 
 
 @app.post(
@@ -232,7 +252,8 @@ async def modificar_transaccion(transaccion: ModeloTransaccion | None = None):
             tags=["Transaccion"]
             )
 async def retirar_transaccion(transaccion: ModeloTransaccion | None = None):
-    return transaccion
+    brokerTransaccion = BrokerTransaccion()
+    return brokerTransaccion.retirar_transaccion(transaccion)
 
 
 @app.post(
@@ -243,9 +264,8 @@ async def retirar_transaccion(transaccion: ModeloTransaccion | None = None):
             tags=["Transaccion"]
             )
 async def consultar_transaccion(transaccion: ModeloTransaccion | None = None):
-    brokertransaccion = BrokerTransaccion()
-    transaccion = brokertransaccion.consultar_transaccion(transaccion)
-    return transaccion
+    brokerTransaccion = BrokerTransaccion()
+    return brokerTransaccion.consultar_transaccion(transaccion)
 
 
 @app.post(
@@ -256,9 +276,10 @@ async def consultar_transaccion(transaccion: ModeloTransaccion | None = None):
             tags=["Transaccion"]
             )
 async def consultarid_transaccion(transaccion: ModeloTransaccion | None = None):
-    return transaccion
+    brokerTransaccion = BrokerTransaccion()
+    return brokerTransaccion.consultarid_transaccion(transaccion)
 
-#####################################################
+###############################################################################
 
 @app.post(
             "/ingresarusuario",
@@ -268,7 +289,9 @@ async def consultarid_transaccion(transaccion: ModeloTransaccion | None = None):
             tags=["Usuario"]
             )
 async def ingresar_usuario(usuario: ModeloUsuario | None = None):
-    return usuario
+    print("Ingreso API ingresar_usuario")
+    brokerUsuario = BrokerUsuario()
+    return brokerUsuario.ingresar_usuario(usuario)
 
 
 @app.post(
@@ -276,10 +299,11 @@ async def ingresar_usuario(usuario: ModeloUsuario | None = None):
             response_model=ModeloUsuario,
             summary="Modificar Usuario",
             description="API para Modificar Usuario",
-            tags=["Geografia"]
+            tags=["Usuario"]
             )
 async def modificar_usuario(usuario: ModeloUsuario | None = None):
-    return usuario
+    brokerUsuario = BrokerUsuario()
+    return brokerUsuario.modificar_usuario(usuario)
 
 
 @app.post(
@@ -290,7 +314,8 @@ async def modificar_usuario(usuario: ModeloUsuario | None = None):
             tags=["Usuario"]
             )
 async def retirar_usuario(usuario: ModeloUsuario | None = None):
-    return usuario
+    brokerUsuario = BrokerUsuario()
+    return brokerUsuario.retirar_usuario(usuario)
 
 
 @app.post(
@@ -301,9 +326,8 @@ async def retirar_usuario(usuario: ModeloUsuario | None = None):
             tags=["Usuario"]
             )
 async def consultar_usuario(usuario: ModeloUsuario | None = None):
-    brokerusuario = BrokerUsuario()
-    usuario = brokerusuario.consultar_usuario(usuario)
-    return usuario
+    brokerUsuario = BrokerUsuario()
+    return brokerUsuario.consultar_usuario(usuario)
 
 
 @app.post(
@@ -313,8 +337,9 @@ async def consultar_usuario(usuario: ModeloUsuario | None = None):
             description="API para Consultar ID Usuario",
             tags=["Usuario"]
             )
-async def consultarid_geografia(usuario: ModeloUsuario | None = None):
-    return usuario
+async def consultarid_usuario(usuario: ModeloUsuario | None = None):
+    brokerUsuario = BrokerUsuario()
+    return brokerUsuario.consultarid_usuario(usuario)
 
-#####################################################
+###############################################################################
 
